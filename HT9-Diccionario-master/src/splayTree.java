@@ -1,3 +1,13 @@
+/**
+ * @author olivverde
+ * 
+ * Class purpose: SplayTree implementation, implements map class in order to 
+ * enable the Factory.
+ * 
+ * SplayTree implementation has been retrieved from: https://algs4.cs.princeton.edu/33balanced/SplayBST.java.html
+ * Written by Josh Israel.
+ */
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;

@@ -1,5 +1,6 @@
 /**
  * @author olivverde
+ * @author Orlando
  * 
  * Class purpose: SplayTree implementation, implements map class in order to 
  * enable the Factory.
@@ -28,6 +29,11 @@ public class splayTree<Key extends Comparable<Key>, Value> implements Map <Key,V
         }
     }
 
+    /**
+     * @pre: Hay un valor en el arbol
+     * @post> Devuelve true si el objeto se encuentra en el arbol
+     * @return: True si el valor se encuentra en el arbol o null si no se encuentra
+     */
     @Override
 	public boolean containsKey(Object key) {
     	return get(key) != null;
@@ -37,7 +43,11 @@ public class splayTree<Key extends Comparable<Key>, Value> implements Map <Key,V
 
     // return value associated with the given key
     // if no such value, return null
-    
+    /**
+     * @pre: Hay un valor en el arbol
+     * @post: Devuelve el valor de la llave asociada
+     * @return: El valor de la llave
+     */
     @Override
 	public Value get(Object key) {
     	root = splay(root, key);
@@ -50,6 +60,9 @@ public class splayTree<Key extends Comparable<Key>, Value> implements Map <Key,V
    /***************************************************************************
     *  Splay tree insertion.
     ***************************************************************************/
+    /**
+     * @post: Introduce una llave con su valor al arbol
+     */
     public Value put(Key key, Value value) {
         // splay key to root
         if (root == null) {
@@ -98,6 +111,11 @@ public class splayTree<Key extends Comparable<Key>, Value> implements Map <Key,V
      * right subtree. Finally, A's right child is made the new root's right 
      * child.
      */
+    /**
+     * @pre: Hay un objeto en el arbol
+     * @post: Elimina la raiz del arbol y posiciona al hijo derecho como sucesor 
+     * @param key
+     */
     public void remove(Key key) {
         if (root == null) return; // empty tree
         
@@ -127,6 +145,13 @@ public class splayTree<Key extends Comparable<Key>, Value> implements Map <Key,V
     // splay key in the tree rooted at Node h. If a node with that key exists,
     //   it is splayed to the root of the tree. If it does not, the last node
     //   along the search path for the key is splayed to the root.
+    /**
+     * @pre: Hay un valor en el arbol
+     * @post: Reposiciona las hojas del arbol
+     * @param h
+     * @param key
+     * @return
+     */
     private Node splay(Node h, Object key) {
         if (h == null) return null;
 
@@ -182,22 +207,35 @@ public class splayTree<Key extends Comparable<Key>, Value> implements Map <Key,V
     ***************************************************************************/
 
     // height of tree (1-node tree has height 0)
+    /**
+     * @post: Devuelve la altura del arbol
+     * @return: Un int con la altura del arbol
+     */
     public int height() { return height(root); }
     private int height(Node x) {
         if (x == null) return -1;
         return 1 + Math.max(height(x.left), height(x.right));
     }
 
-    
+    /**
+     * @post: Devuelve el tamanio del arbol
+     */
     public int size() {
         return size(root);
     }
-    
+    /**
+     * @post: Devuelve el tamanio del arbol
+     */
     private int size(Node x) {
         if (x == null) return 0;
         else return 1 + size(x.left) + size(x.right);
     }
-    
+    /**
+     * @pre: Hay un valor en el arbol
+     * @post: Devuelve el nodo rotado hacia la derecha
+     * @param h
+     * @return: El nodo rotado a la dereha
+     */
     // right rotate
     private Node rotateRight(Node h) {
         Node x = h.left;
@@ -205,7 +243,12 @@ public class splayTree<Key extends Comparable<Key>, Value> implements Map <Key,V
         x.right = h;
         return x;
     }
-
+    /**
+     * @pre: Hay un valor en el arbol
+     * @post: Devuelve el nodo rotado hacia la izquierda
+     * @param h
+     * @return: El nodo rotado a la izquierda
+     */
     // left rotate
     private Node rotateLeft(Node h) {
         Node x = h.right;
@@ -214,6 +257,7 @@ public class splayTree<Key extends Comparable<Key>, Value> implements Map <Key,V
         return x;
     }
 
+    //Metodos que no se utilizaron
 	@Override
 	public void clear() {
 		// TODO Auto-generated method stub

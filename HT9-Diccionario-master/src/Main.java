@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -36,14 +37,20 @@ public class Main {
 		documento = teclado.nextLine();
 		System.out.println("Introduzca el nombre del segundo documento (texto.txt)"); 
 		documento2 = teclado.nextLine();
-		//----------------------------Aqui deberia ir el Factory---------------------------------
+		//----------------------------Factory---------------------------------
 		Factory <String,String> factory = new Factory<String, String>();
 		System.out.println("1. HashMap 2.SplayTree"); 
 		int tipo = teclado.nextInt();
 		Map <String,String> mapa = factory.getMap(tipo);	
+		if (mapa instanceof HashMap) {
+			System.out.println("Usted esta utilizando: HashMap");
+		}else if (mapa instanceof splayTree) {
+			System.out.println("Usted esta utilizando: SplayTree");
+		}
+		
 		//------------------Leer el archivo y ordenar los pacientes por prioridad----------------------
 	    try {
-	      FileReader fr = new FileReader("Spanish.txt");
+	      FileReader fr = new FileReader(documento);
 	      BufferedReader br = new BufferedReader(fr);
 	      String linea;	      
 	      while((linea = br.readLine()) != null) {	
@@ -73,9 +80,7 @@ public class Main {
 	    	  n3++;
 	    	  mapa.put(palabra, traduccion);
 	    	  //Borrar despues
-	    	  //System.out.println("Palabra en ingles: " + palabra);
-	    	  //System.out.println("Palabra traducida: " + traduccion);
-	    	  //System.out.println("Linea: " + n3);
+
 	      }
 	      	        
 	      fr.close();
@@ -85,19 +90,14 @@ public class Main {
 	    }
 	   //--------------------------------------Fin del lector de primer archivo e inicio de la leida del segundo archivo--------------------------
 	    try {
-		      FileReader fr = new FileReader("texto.txt");
+		      FileReader fr = new FileReader(documento2);
 		      BufferedReader br = new BufferedReader(new FileReader("texto.txt"));
 		      String linea;	      
 		      while((linea = br.readLine()) != null) {	
-		    	  n1 = 0;
-		    	  n2 = 0;
 		    	  palabra = "";
 		    	  palabra = linea;
-		    	  
-		    	  //Borrar despues
-		    	  //System.out.println("Palabra en ingles: " + palabra);
-		    	  //System.out.println("Palabra traducida: " + traduccion);
-		    	  //System.out.println("Linea: " + n3);
+		    	  palabra = palabra.toLowerCase();
+
 		      }
 		      	        
 		      fr.close();
@@ -127,7 +127,9 @@ public class Main {
 			
 			texto = texto + "*" + palabraS + "* ";
 		}
-	    System.out.println("Palabra traducida" + texto);
+	    System.out.println("Palabra traducida: " + texto);
+	    
 	}
+	
 
 }
